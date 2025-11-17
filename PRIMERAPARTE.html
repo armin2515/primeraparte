@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagrama de Flujo - Modelo Kirkpatrick</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f4f6f9;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+        p.subtitle {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .node {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            border-radius: 12px;
+            padding: 14px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .node:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.14);
+        }
+        .node.active {
+            border-color: #0077FF;
+            border-width: 3px;
+        }
+        .badge {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            display: inline-block;
+        }
+        .arrow {
+            width: 2px;
+            height: 25px;
+            background: #bbb;
+        }
+        .details {
+            margin-top: 20px;
+            background: #f8f9fb;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #ddd;
+        }
+        .details h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>Diagrama de Flujo - Modelo Kirkpatrick</h1>
+    <p class="subtitle">Haz clic en cada nivel para ver sus detalles.</p>
+
+    <div class="flow">
+        <div class="node" data-level="1">
+            <div class="badge" style="background:#1E88E5;">Nivel 1</div>
+            <strong>Reacción</strong><br>
+            <small>Medir satisfacción del curso</small>
+        </div>
+
+        <div class="arrow"></div>
+
+        <div class="node" data-level="2">
+            <div class="badge" style="background:#43A047;">Nivel 2</div>
+            <strong>Aprendizaje</strong><br>
+            <small>Medir conocimientos adquiridos</small>
+        </div>
+
+        <div class="arrow"></div>
+
+        <div class="node" data-level="3">
+            <div class="badge" style="background:#FBC02D;">Nivel 3</div>
+            <strong>Comportamiento</strong><br>
+            <small>Aplicación en el trabajo</small>
+        </div>
+
+        <div class="arrow"></div>
+
+        <div class="node" data-level="4">
+            <div class="badge" style="background:#E53935;">Nivel 4</div>
+            <strong>Resultados</strong><br>
+            <small>Impacto organizacional</small>
+        </div>
+    </div>
+
+    <div class="details">
+        <h3 id="d_title">Selecciona un nivel</h3>
+        <div id="d_text">Toca un bloque para ver su información.</div>
+    </div>
+</div>
+
+<script>
+    const details = {
+        1: {
+            t: "Nivel 1 – Reacción",
+            d: "Evalúa satisfacción, percepción del curso, instructor, materiales y ambiente. Usualmente mediante encuesta."
+        },
+        2: {
+            t: "Nivel 2 – Aprendizaje",
+            d: "Mide conocimientos, habilidades y actitudes adquiridas mediante pruebas, ejercicios y prácticas."
+        },
+        3: {
+            t: "Nivel 3 – Comportamiento",
+            d: "Verifica si el participante aplica lo aprendido en su trabajo mediante observación y seguimiento."
+        },
+        4: {
+            t: "Nivel 4 – Resultados",
+            d: "Determina el impacto real en indicadores de la organización: productividad, calidad, ahorro, tiempos."
+        }
+    };
+
+    const nodes = document.querySelectorAll(".node");
+    const title = document.getElementById("d_title");
+    const text = document.getElementById("d_text");
+
+    nodes.forEach(n => {
+        n.addEventListener("click", () => {
+            nodes.forEach(x => x.classList.remove("active"));
+            n.classList.add("active");
+
+            const lvl = n.dataset.level;
+            title.textContent = details[lvl].t;
+            text.textContent = details[lvl].d;
+        });
+    });
+</script>
+
+</body>
+</html>
